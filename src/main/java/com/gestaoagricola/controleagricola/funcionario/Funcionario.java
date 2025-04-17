@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class Funcionario {
 
 	public Funcionario(DadosCadastroFuncionario dados) {
 		this.ativo = true;
+		this.nome = dados.nome();
 		this.funcao = dados.funcao();
 		this.tipo = dados.tipo();
 		this.turma = dados.turma();
@@ -38,6 +40,7 @@ public class Funcionario {
 		this.admissao = dados.admissao();
 		this.demissao = dados.demissao();
 		this.pis = dados.pis();
+		this.secao = dados.secao();
 		if (dados.secao() == 10) {
 			this.descricaoSecao = "Sossego";
 		} else if (dados.secao() == 11) {
@@ -101,4 +104,46 @@ public class Funcionario {
 
 	private Boolean ativo;
 
+	
+	public void atualizarInformacoes(@Valid DadosAtualizarFuncionario dados) {
+		if(dados.ativo() != null) {
+			this.ativo = dados.ativo();
+		}
+		if(dados.id() != null) {
+			this.id = dados.id();
+		}
+		if(dados.secao() != null) {
+			this.secao = dados.secao();
+		}
+		if(dados.funcao() != null) {
+			this.funcao = dados.funcao();
+		}
+		if(dados.tipo() != null) {
+			this.tipo = dados.tipo();
+		}
+		if(dados.turma() != null) {
+			this.turma = dados.turma();
+		}
+		if(dados.nome() != null) {
+			this.nome = dados.nome();
+		}
+		if(dados.dataNascimento() != null) {
+			this.dataNascimetno = dados.dataNascimento();
+		}
+		if(dados.cpf() != null) {
+			this.cpf = dados.cpf();
+		}
+		if(dados.ctps() != null) {
+			this.ctps = dados.ctps();
+		}
+		if(dados.demissao() != null) {
+			this.demissao = dados.demissao();
+		}
+		if(dados.admissao() != null) {
+			this.admissao = dados.admissao();
+		}
+		if(dados.pis() != null) {
+			this.pis = dados.pis();
+		}
+	}
 }
