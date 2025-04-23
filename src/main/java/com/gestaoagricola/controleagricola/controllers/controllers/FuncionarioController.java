@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -68,6 +69,14 @@ public class FuncionarioController {
 		funcionario.atualizarInformacoes(dados);
 		return ResponseEntity.ok(new DadosDetalhamentoFuncionario (funcionario));
 	}
+	
+	   @GetMapping("/apontamento/{turma}")
+	    public ResponseEntity<List<Funcionario>> apontamento(@PathVariable int turma, @RequestParam (required = false, defaultValue = "true") boolean ativo) {
+	        var apontamento = repository.findAllByTurmaAndAtivo(turma, ativo);
+	        
+	        return ResponseEntity.ok(apontamento);
+	    }
+
 	
 }
 
