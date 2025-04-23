@@ -1,4 +1,4 @@
-package com.gestaoagricola.controleagricola.controllers;
+package com.gestaoagricola.controleagricola.controllers.controllers;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.gestaoagricola.controleagricola.funcionario.DadosAtualizarFuncionario;
 import com.gestaoagricola.controleagricola.funcionario.DadosCadastroFuncionario;
@@ -34,9 +35,15 @@ public class FuncionarioController {
 	
 	@PostMapping
 	@Transactional
-	public void cadastrarFuncionario(@RequestBody @Validated DadosCadastroFuncionario dados) {
-		var funcionario = new Funcionario(dados);		
+	public ResponseEntity<DadosDetalhamentoFuncionario> cadastrarFuncionario(@RequestBody @Validated DadosCadastroFuncionario dados, UriComponentsBuilder uriBuilder) {
+		var funcionario = new Funcionario(dados);
 		repository.save(funcionario);
+		
+		var uri = uriBuilder.path("/funcionario/{id}").buildAndExpand(funcionario.getId()).toUri();
+		
+		return ResponseEntity.created(uri).body(new DadosDetalhamentoFuncionario(funcionario));
+		
+	
 	}
 	
 	@GetMapping
