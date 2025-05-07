@@ -1,4 +1,4 @@
-package com.gestaoagricola.controleagricola.controllers.controllers;
+package com.gestaoagricola.controleagricola.controllers;
 
 import java.util.List;
 
