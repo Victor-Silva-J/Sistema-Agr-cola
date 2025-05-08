@@ -1,15 +1,14 @@
 package com.gestaoagricola.controleagricola.fazenda;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record DadosCadastroFazenda(
+public record DadosAtualizarFazenda(
+		
 		@NotNull
-		int codigoFazenda,
-		@NotBlank
+		Long id,
+		Integer codigoFazenda,
 		String nome,
-		String municipio, 
+		String municipio,
 		Long cep) {
-	
 
 }

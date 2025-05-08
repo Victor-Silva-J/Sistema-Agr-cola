@@ -1,10 +1,12 @@
 package com.gestaoagricola.controleagricola.fazenda;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "fazenda")
-@Table(name = "Fazendas")
+@Table(name = "Fazenda")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
@@ -28,19 +30,37 @@ public class Fazenda {
 		this.cep = dados.cep();
 	}
 	
-	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	Long id;
 	
 	@NotNull
-	int codigoFazenda;
+	@Column(name = "CODIGOFAZENDA")
+	Integer codigoFazenda;
 	@NotNull
 	String nome;
 	
 	String municipio;
 	Long cep;
 	
+	public void atualizarInformacoes(@Valid DadosAtualizarFazenda dados) {
+		if(dados.id() != null) {
+			this.id = dados.id();
+		}
+		if(dados.codigoFazenda() != null) {
+			this.codigoFazenda = dados.codigoFazenda();
+		}
+		if(dados.nome() != null) {
+			this.nome = dados.nome();
+		}
+		if(dados.municipio() != null) {
+			this.municipio = dados.municipio();
+		}
+		if(dados.cep() != null) {
+			this.cep = dados.cep();
+		}
+		
+	}
 	
 	
 }
