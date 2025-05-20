@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotNull;
 
 public record DadosCadastroFazenda(
 		@NotNull
-		int codigoFazenda,
+		String codigoFazenda,
 		@NotBlank
-		String nome,
+		String nomeFazenda,
 		String municipio, 
 		Long cep) {
 	

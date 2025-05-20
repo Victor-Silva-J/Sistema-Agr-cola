@@ -6,8 +6,8 @@ public record DadosAtualizarFazenda(
 		
 		@NotNull
 		Long id,
-		Integer codigoFazenda,
-		String nome,
+		String codigoFazenda,
+		String nomeFazenda,
 		String municipio,
 		Long cep) {
 

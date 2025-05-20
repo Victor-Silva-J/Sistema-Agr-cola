@@ -1,10 +1,15 @@
 package com.gestaoagricola.controleagricola.fazenda;
 
+import java.util.List;
+
+import com.gestaoagricola.controleagricola.talhao.Talhao;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -25,23 +30,27 @@ public class Fazenda {
 
 	public Fazenda(DadosCadastroFazenda dados) {
 		this.codigoFazenda = dados.codigoFazenda();
-		this.nome = dados.nome();
+		this.nomeFazenda = dados.nomeFazenda();
 		this.municipio = dados.municipio();
 		this.cep = dados.cep();
 	}
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	Long id;
+	private Long id;
 	
 	@NotNull
 	@Column(name = "CODIGOFAZENDA")
-	Integer codigoFazenda;
+	private String codigoFazenda;
 	@NotNull
-	String nome;
+	@Column(name = "NOME")
+	private String nomeFazenda;
 	
-	String municipio;
-	Long cep;
+	private String municipio;
+	private Long cep;
+	
+	@OneToMany(mappedBy = "fazenda")
+	private List<Talhao> talhoes;
 	
 	public void atualizarInformacoes(@Valid DadosAtualizarFazenda dados) {
 		if(dados.id() != null) {
@@ -50,8 +59,8 @@ public class Fazenda {
 		if(dados.codigoFazenda() != null) {
 			this.codigoFazenda = dados.codigoFazenda();
 		}
-		if(dados.nome() != null) {
-			this.nome = dados.nome();
+		if(dados.nomeFazenda() != null) {
+			this.nomeFazenda = dados.nomeFazenda();
 		}
 		if(dados.municipio() != null) {
 			this.municipio = dados.municipio();

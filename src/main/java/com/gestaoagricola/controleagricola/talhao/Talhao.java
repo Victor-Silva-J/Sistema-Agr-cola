@@ -1,0 +1,66 @@
+package com.gestaoagricola.controleagricola.talhao;
+
+import java.math.BigDecimal;
+
+import com.gestaoagricola.controleagricola.fazenda.Fazenda;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Table(name = "talhao")
+@Entity(name ="talhao")
+@Getter
+@Setter
+@EqualsAndHashCode(of = "id")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Talhao {
+	
+	public Talhao(DadosCadastroTalhao dados, Fazenda fazenda) {
+		this.codigo = fazenda.getCodigoFazenda() + dados.numeroTalhao();
+		this.numeroTalhao = dados.numeroTalhao();
+		this.area = dados.area();
+		this.cultura = dados.cultura();
+		this.tipoSolo = dados.tipoSolo();
+		this.fazenda = fazenda;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	
+	@Column(name = "numero_talhao")
+	private String numeroTalhao;
+	
+	@Column(name = "codigo")
+	private String codigo;
+	
+	@Column(name = "area")
+	private BigDecimal area;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "cultura")
+	private Cultura cultura;
+	
+	@Column(name = "tipo_de_solo")
+	private String tipoSolo;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigo_fazenda", nullable = false)
+	private Fazenda fazenda;
+	
+}
