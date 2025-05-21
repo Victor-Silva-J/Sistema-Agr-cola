@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public record DadosListagemFuncionario(
 		Long id,
 		String nome,
+		int secao,
 		String descricaoSecao,
 		Funcao funcao,
 		Tipo tipo,
@@ -20,7 +21,7 @@ public record DadosListagemFuncionario(
 		
 		) {
 	public DadosListagemFuncionario(Funcionario funcionario) {
-		this(funcionario.getId(), funcionario.getNome(), funcionario.getDescricaoSecao(), funcionario.getFuncao(), funcionario.getTipo(),
+		this(funcionario.getId(), funcionario.getNome(), funcionario.getSecao() ,funcionario.getDescricaoSecao(), funcionario.getFuncao(), funcionario.getTipo(),
 				funcionario.getTurma(), funcionario.getDataNascimetno(), funcionario.getCpf(),funcionario.getCtps(), funcionario.getAdmissao(),
 				funcionario.getDemissao(), funcionario.getPis(), funcionario.getAtivo());
 	}

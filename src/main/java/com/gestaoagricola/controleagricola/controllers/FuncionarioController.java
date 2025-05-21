@@ -2,7 +2,6 @@ package com.gestaoagricola.controleagricola.controllers;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,65 +29,58 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/funcionario")
 public class FuncionarioController {
-	
+
 	@Autowired
 	private funcionarioRepository repository;
-	
+
 	@PostMapping
 	@Transactional
-	public ResponseEntity<DadosDetalhamentoFuncionario> cadastrarFuncionario(@RequestBody @Validated DadosCadastroFuncionario dados, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<DadosDetalhamentoFuncionario> cadastrarFuncionario(
+			@RequestBody @Validated DadosCadastroFuncionario dados, UriComponentsBuilder uriBuilder) {
 		var funcionario = new Funcionario(dados);
 		repository.save(funcionario);
-		
+
 		var uri = uriBuilder.path("/funcionario/{id}").buildAndExpand(funcionario.getId()).toUri();
-		
+
 		return ResponseEntity.created(uri).body(new DadosDetalhamentoFuncionario(funcionario));
-		
-	
+
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<List<DadosListagemFuncionario>> listar() {
 		var lista = repository.findAll().stream().map(DadosListagemFuncionario::new).toList();
-		
+
 		return ResponseEntity.ok(lista);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		repository.deleteById(id);
-		
+
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PutMapping
 	@Transactional
-	public ResponseEntity<DadosDetalhamentoFuncionario> atualizar(@RequestBody @Valid DadosAtualizarFuncionario dados){
+	public ResponseEntity<DadosDetalhamentoFuncionario> atualizar(@RequestBody @Valid DadosAtualizarFuncionario dados) {
 		var funcionario = repository.getReferenceById(dados.id());
 		funcionario.atualizarInformacoes(dados);
-		return ResponseEntity.ok(new DadosDetalhamentoFuncionario (funcionario));
+		return ResponseEntity.ok(new DadosDetalhamentoFuncionario(funcionario));
+	}
+
+	@GetMapping("/apontamento/{turma}")
+	public ResponseEntity<List<Funcionario>> apontamento(@PathVariable int turma,
+			@RequestParam(required = false, defaultValue = "true") boolean ativo) {
+		var apontamento = repository.findAllByTurmaAndAtivo(turma, ativo);
+
+		return ResponseEntity.ok(apontamento);
 	}
 	
-	   @GetMapping("/apontamento/{turma}")
-	    public ResponseEntity<List<Funcionario>> apontamento(@PathVariable int turma, @RequestParam (required = false, defaultValue = "true") boolean ativo) {
-	        var apontamento = repository.findAllByTurmaAndAtivo(turma, ativo);
-	        
-	        return ResponseEntity.ok(apontamento);
-	    }
+	@GetMapping("/{id}")
+	public ResponseEntity<DadosDetalhamentoFuncionario> detalhamento(@PathVariable Long id){
+		var funcionario = repository.getReferenceById(id);
+		return ResponseEntity.ok(new DadosDetalhamentoFuncionario(funcionario));
+	}
 
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

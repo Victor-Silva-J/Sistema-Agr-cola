@@ -9,6 +9,7 @@ public interface funcionarioRepository extends JpaRepository<Funcionario, Long> 
 	List<Funcionario> findAll();
 
 	List<Funcionario> findAllByTurmaAndAtivo(int turma, Boolean ativo);
+	
 
 
 
