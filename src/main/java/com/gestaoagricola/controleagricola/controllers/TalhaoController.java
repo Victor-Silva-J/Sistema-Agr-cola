@@ -1,9 +1,12 @@
 package com.gestaoagricola.controleagricola.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +18,7 @@ import com.gestaoagricola.controleagricola.fazenda.Fazenda;
 import com.gestaoagricola.controleagricola.fazenda.RepositoryFazenda;
 import com.gestaoagricola.controleagricola.talhao.DadosCadastroTalhao;
 import com.gestaoagricola.controleagricola.talhao.DadosDetalhamentoTalhao;
+import com.gestaoagricola.controleagricola.talhao.DadosListagemTalhao;
 import com.gestaoagricola.controleagricola.talhao.Talhao;
 import com.gestaoagricola.controleagricola.talhao.TalhaoRepository;
 import jakarta.transaction.Transactional;
@@ -50,5 +54,11 @@ public class TalhaoController {
 		talhaoRepository.deleteById(id);
 		return ResponseEntity.ok().body("Talhão excluído com sucesso!");
 		
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<DadosListagemTalhao>> listarTalhao(DadosListagemTalhao dados){
+		var lista = talhaoRepository.findAll().stream().map(DadosListagemTalhao::new).toList();
+		return ResponseEntity.ok(lista);
 	}
 }

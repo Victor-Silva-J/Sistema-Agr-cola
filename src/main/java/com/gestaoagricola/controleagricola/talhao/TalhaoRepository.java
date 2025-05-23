@@ -9,5 +9,6 @@ import com.gestaoagricola.controleagricola.fazenda.Fazenda;
 public interface TalhaoRepository extends JpaRepository<Talhao, Long> {
 	
 	List<Talhao> findByFazendaId(Long fazendaId);
+	List<Talhao> findAll();
 	int countByFazenda(Fazenda fazenda);
 }
