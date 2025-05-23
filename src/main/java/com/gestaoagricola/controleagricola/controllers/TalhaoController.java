@@ -3,6 +3,8 @@ package com.gestaoagricola.controleagricola.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,5 +41,14 @@ public class TalhaoController {
 		var uri = uriBuilder.path("/talhao/{codigo}").buildAndExpand(talhao.getCodigo()).toUri();
 		
 		return ResponseEntity.created(uri).body(new DadosDetalhamentoTalhao(talhao));
+	}
+	
+	@DeleteMapping("/{id}")
+	@Transactional
+	public ResponseEntity<?> deletarTalhao(@PathVariable Long id){
+		
+		talhaoRepository.deleteById(id);
+		return ResponseEntity.ok().body("Talhão excluído com sucesso!");
+		
 	}
 }
