@@ -63,4 +63,22 @@ public class Talhao {
 	@JoinColumn(name = "codigo_fazenda", nullable = false)
 	private Fazenda fazenda;
 	
+	public void atualizarInformacoes(DadosAtualizarTalhao dados) {
+		if(dados.numeroTalhao() != null) {
+			this.numeroTalhao = dados.numeroTalhao();
+		}
+		if(dados.codigo() != null) {
+			this.codigo = dados.codigo();
+		}
+		if(dados.area() != null) {
+			this.area = dados.area();
+		}
+		if(dados.cultura() != null) {
+			this.cultura = dados.cultura();
+		}
+		if(dados.tipoSolo() != null) {
+			this.tipoSolo = dados.tipoSolo();
+		}
+	}
+	
 }
