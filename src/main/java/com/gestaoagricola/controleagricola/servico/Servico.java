@@ -33,4 +33,16 @@ public class Servico {
 	private String codigoServico;
 	private String descricao;
 	private String centroCusto;
+	
+	public void AtualizarServico(DadosAtualizarServico dados) {
+		if(dados.codigoServico() != null) {
+			this.codigoServico = dados.codigoServico();
+		}
+		if(dados.descricao() != null) {
+			this.descricao = dados.descricao();
+		}
+		if(dados.centroCusto() != null) {
+			this.centroCusto = dados.centroCusto();
+		}
+	}
 }
