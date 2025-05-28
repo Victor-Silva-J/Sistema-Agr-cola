@@ -1,8 +1,11 @@
 package com.gestaoagricola.controleagricola.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.gestaoagricola.controleagricola.servico.DadosCadastroServico;
 import com.gestaoagricola.controleagricola.servico.DadosDetalhamentoServico;
+import com.gestaoagricola.controleagricola.servico.DadosListagemServico;
 import com.gestaoagricola.controleagricola.servico.Servico;
 import com.gestaoagricola.controleagricola.servico.ServicoRepository;
 
@@ -29,8 +33,19 @@ public class ServicoController {
 	public ResponseEntity<DadosDetalhamentoServico> cadastrarServico(@Valid @RequestBody DadosCadastroServico dados, UriComponentsBuilder uriBuilder){
 	
 		var servico = new Servico(dados);
+		repository.save(servico);
+		
 		var uri = uriBuilder.path("/servico/{id}").buildAndExpand(servico.getId()).toUri();
 		return ResponseEntity.created(uri).body(new DadosDetalhamentoServico(servico));
+		
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<DadosListagemServico>> listarServico(){
+		
+		var lista = repository.findAll().stream().map(DadosListagemServico::new).toList();
+		
+		return ResponseEntity.ok(lista);
 	}
 	
 }
