@@ -30,7 +30,7 @@ import lombok.Setter;
 public class Talhao {
 	
 	public Talhao(DadosCadastroTalhao dados, Fazenda fazenda) {
-		this.codigo = fazenda.getCodigoFazenda() + dados.numeroTalhao();
+		this.codigo = dados.codigoFazenda() + dados.numeroTalhao();
 		this.numeroTalhao = dados.numeroTalhao();
 		this.area = dados.area();
 		this.cultura = dados.cultura();

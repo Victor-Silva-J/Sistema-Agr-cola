@@ -13,8 +13,12 @@ public record DadosListagemTalhao(
 		String tipoSolo) {
 	
 	public DadosListagemTalhao(Talhao talhao) {
-		this(talhao.getId(), talhao.getNumeroTalhao(), talhao.getCodigo(),
-				talhao.getArea(),talhao.getCultura(), talhao.getTipoSolo());
+		this(talhao.getId(), 
+				talhao.getNumeroTalhao(), 
+				talhao.getCodigo(),
+				talhao.getArea(),
+				talhao.getCultura(), 
+				talhao.getTipoSolo());
 	}
 
 }

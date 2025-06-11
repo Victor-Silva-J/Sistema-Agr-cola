@@ -1,0 +1,1 @@
+ALTER TABLE apontamentos MODIFY COLUMN safra INT NOT NULL;
