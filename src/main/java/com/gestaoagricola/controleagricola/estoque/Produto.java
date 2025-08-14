@@ -14,14 +14,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "EstoqueProduto")
-@Table(name = "EstoqueProduto")
+@Entity(name = "Produto")
+@Table(name = "Produto")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
-public class EstoqueProduto {
+public class Produto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +32,9 @@ public class EstoqueProduto {
 	@Enumerated
 	private Tipo tipo;
 	
-	private String unidadeMedida;
+	private Double quantidadeAtual;
 	
-	private double quantidadeAtual;
-	
+	@Enumerated
+	private UnidadeMedida unidadeMedida;
 
 }
