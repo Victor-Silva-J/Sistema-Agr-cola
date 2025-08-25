@@ -1,17 +1,17 @@
 package com.gestaoagricola.controleagricola.estoque;
 
-import com.gestaoagricola.controleagricola.funcionario.Tipo;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record DadosCadastroProduto(
 		@NotBlank
 		String nome,
-		@NotBlank
-		Tipo tipo,
-		@NotBlank
+		@NotNull
+		TipoProduto tipo,
+		@NotNull
 		Double quantidadeAtual,
-		@NotBlank
-		UnidadeMedida unidadeMedida) {
+		@NotNull
+		UnidadeMedia unidadeMedia) {
 
 }

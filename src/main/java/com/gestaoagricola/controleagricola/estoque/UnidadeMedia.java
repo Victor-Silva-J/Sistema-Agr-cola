@@ -1,8 +1,8 @@
 package com.gestaoagricola.controleagricola.estoque;
 
-public enum UnidadeMedida {
+public enum UnidadeMedia {
 
-	LT,
+	L,
 	KG,
 	TON,
 	SC
