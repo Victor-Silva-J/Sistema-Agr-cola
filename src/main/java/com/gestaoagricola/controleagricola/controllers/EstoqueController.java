@@ -1,8 +1,11 @@
 package com.gestaoagricola.controleagricola.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.gestaoagricola.controleagricola.estoque.DadosCadastroProduto;
 import com.gestaoagricola.controleagricola.estoque.DadosDetalhamentoProduto;
+import com.gestaoagricola.controleagricola.estoque.DadosListagemProduto;
 import com.gestaoagricola.controleagricola.estoque.Produto;
 import com.gestaoagricola.controleagricola.estoque.RepositoryEstoque;
 
@@ -34,5 +38,15 @@ public class EstoqueController {
 		return ResponseEntity.created(uri).body(new DadosDetalhamentoProduto(produto));
 		
 	}
+	
+	@GetMapping
+	public ResponseEntity<List<DadosListagemProduto>> lista(){
+		
+		var lista = repository.findAll().stream().map(DadosListagemProduto:: new).toList();
+		
+		return ResponseEntity.ok(lista);
+	}
+	
+	
 	
 }
