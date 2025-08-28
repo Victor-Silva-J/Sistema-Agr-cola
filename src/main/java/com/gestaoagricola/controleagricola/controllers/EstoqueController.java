@@ -8,11 +8,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.gestaoagricola.controleagricola.estoque.DadosAtualizarProduto;
 import com.gestaoagricola.controleagricola.estoque.DadosCadastroProduto;
 import com.gestaoagricola.controleagricola.estoque.DadosDetalhamentoProduto;
 import com.gestaoagricola.controleagricola.estoque.DadosListagemProduto;
@@ -55,6 +58,15 @@ public class EstoqueController {
 		repository.deleteById(id);
 		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping
+	@Transactional
+	public ResponseEntity<DadosDetalhamentoProduto> atualizar(@RequestBody @Valid DadosAtualizarProduto dados){
+		var produto = repository.getReferenceById(dados.id());
+		produto.atualizarInformacoes(dados);
+		return ResponseEntity.ok(new DadosDetalhamentoProduto(produto));
+		
 	}
 	
 	

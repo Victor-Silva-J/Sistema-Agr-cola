@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -47,4 +48,22 @@ public class Produto {
 	@Column(name = "unidadeMedia")
 	private UnidadeMedia unidadeMedia;
 
+	public void atualizarInformacoes(@Valid DadosAtualizarProduto dados) {
+		if(dados.id() != null) {
+			this.id = dados.id();
+		}
+		if(dados.nome() != null) {
+			this.nome = dados.nome();
+		}
+		if(dados.tipo() != null) {
+			this.tipo = dados.tipo();
+		}
+		if(dados.quantidadeAtual() != null) {
+			this.quantidadeAtual = dados.quantidadeAtual();
+		}
+		if(dados.unidadeMedia() != null) {
+			this.unidadeMedia = dados.unidadeMedia();
+		}
+	}
+	
 }
