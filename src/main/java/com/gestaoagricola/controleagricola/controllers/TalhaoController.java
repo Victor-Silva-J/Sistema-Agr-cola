@@ -31,7 +31,6 @@ public class TalhaoController {
 
 	@Autowired
 	private TalhaoRepository talhaoRepository;
-	
 	@Autowired
 	private RepositoryFazenda fazendaRepository;
 	

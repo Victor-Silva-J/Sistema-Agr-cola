@@ -10,7 +10,8 @@ public record DadosListagemTalhao(
 		String codigo,
 		BigDecimal area,
 		Cultura cultura,
-		String tipoSolo) {
+		String tipoSolo,
+		String fazenda) {
 	
 	public DadosListagemTalhao(Talhao talhao) {
 		this(talhao.getId(), 
@@ -18,7 +19,7 @@ public record DadosListagemTalhao(
 				talhao.getCodigo(),
 				talhao.getArea(),
 				talhao.getCultura(), 
-				talhao.getTipoSolo());
+				talhao.getTipoSolo(),
+				talhao.getFazenda().getNomeFazenda());
 	}
-
 }

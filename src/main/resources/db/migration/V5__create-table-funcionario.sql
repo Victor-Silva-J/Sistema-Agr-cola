@@ -14,5 +14,6 @@ create table funcionarios(
 	DEMISSAO DATE ,
 	PIS char(11) not null,
 	
-	primary key (ID)	
+	primary key (ID),
+	CONSTRAINT chk_cpf CHECK (CPF REGEXP '^[0-9]{11}$')	
 );

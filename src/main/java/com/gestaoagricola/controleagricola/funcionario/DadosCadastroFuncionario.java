@@ -11,6 +11,7 @@ public record DadosCadastroFuncionario(
 		
 		int secao,
 		
+		@NotBlank
 		String descricaoSecao,
 		
 		Funcao funcao,

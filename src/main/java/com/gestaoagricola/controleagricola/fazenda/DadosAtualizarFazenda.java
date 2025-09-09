@@ -6,9 +6,13 @@ public record DadosAtualizarFazenda(
 		
 		@NotNull
 		Long id,
+		
 		String codigoFazenda,
+		
 		String nomeFazenda,
+		
 		String municipio,
+		
 		Long cep) {
 
 }

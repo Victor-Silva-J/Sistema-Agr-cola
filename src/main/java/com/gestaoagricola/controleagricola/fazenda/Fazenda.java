@@ -19,7 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "fazenda")
+@Entity
 @Table(name = "Fazenda")
 @Getter
 @Setter
@@ -42,11 +42,13 @@ public class Fazenda {
 	@NotNull
 	@Column(name = "CODIGOFAZENDA")
 	private String codigoFazenda;
+	
 	@NotNull
-	@Column(name = "NOME")
+	@Column(name = "FAZENDA")
 	private String nomeFazenda;
 	
 	private String municipio;
+	
 	private Long cep;
 	
 	@OneToMany(mappedBy = "fazenda")

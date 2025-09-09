@@ -8,6 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,8 +21,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Table(name = "talhao")
-@Entity(name ="talhao")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
@@ -59,9 +60,13 @@ public class Talhao {
 	@Column(name = "tipo_de_solo")
 	private String tipoSolo;
 	
-	@ManyToOne
-	@JoinColumn(name = "codigo_fazenda", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY.EAGER)
+	@JoinColumn(name = "codigo_fazenda",referencedColumnName = "codigoFazenda", nullable = false)
 	private Fazenda fazenda;
+	
+	 public String getNomeFazenda() {
+	        return fazenda != null ? fazenda.getNomeFazenda() : null;
+	    }
 	
 	public void atualizarInformacoes(DadosAtualizarTalhao dados) {
 		if(dados.numeroTalhao() != null) {

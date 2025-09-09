@@ -12,19 +12,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
+@Table(name = "Funcionarios")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "Funcionario")
-@Table(name = "Funcionarios")
 public class Funcionario {
 
 	public Funcionario(DadosCadastroFuncionario dados) {
@@ -41,29 +42,18 @@ public class Funcionario {
 		this.demissao = dados.demissao();
 		this.pis = dados.pis();
 		this.secao = dados.secao();
-		if (dados.secao() == 10) {
-			this.descricaoSecao = "Sossego";
-		} else if (dados.secao() == 11) {
-			this.descricaoSecao = "Suruagy";
-		} else if (dados.secao() == 12) {
-			this.descricaoSecao = "Sitio Sossego";
-		} else if (dados.secao() == 13) {
-			this.descricaoSecao = "Granja Sossego";
-		} else if (dados.secao() == 14) {
-			this.descricaoSecao = "Água Azul";
-		} else if (dados.secao() == 15) {
-			this.descricaoSecao = "Nova Vida";
-		} else if (dados.secao() == 16) {
-			this.descricaoSecao = "Águas Belas";
-		}
-
+		this.descricaoSecao = dados.descricaoSecao();
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	@Column(name = "ID")
 	private Long id;
 
+	@Column(name = "NOME")
+	private String nome;
+	
 	@Column(name = "SECAO")
 	private int secao;
 
@@ -81,13 +71,11 @@ public class Funcionario {
 	@Column(name = "TURMA")
 	private int turma;
 
-	@Column(name = "NOME")
-	private String nome;
-
 	@Column(name = "DATA_DE_NASCIMENTO")
 	private LocalDate dataNascimetno;
 
-	@Column(name = "CPF")
+	@Column(name = "CPF", nullable = false, length = 11)
+	@Pattern(regexp = "\\d{11}", message = "Deve ter exatos 11 números.")
 	private String cpf;
 
 	@Column(name = "CTPS")
