@@ -37,7 +37,7 @@ public class TalhaoController {
 	@PostMapping
 	@Transactional
 	public ResponseEntity<DadosDetalhamentoTalhao> cadastrarTalhao(@Valid @RequestBody DadosCadastroTalhao dados, UriComponentsBuilder uriBuilder){
-		var fazenda = fazendaRepository.findByCodigoFazenda(dados.codigoFazenda()).orElseThrow(() -> new RuntimeException("Fazenda com código " + dados.codigoFazenda() + " não encontrada."));
+		var fazenda = fazendaRepository.findByCodigoFazenda(dados.codigoFazenda()).orElseThrow(() -> new RuntimeException("Fazenda com código " + dados.codigoFazenda() + " não encontrada. Cadastre a fazenda."));
 		
 		var talhao = new Talhao(dados, fazenda);
 		talhaoRepository.save(talhao);

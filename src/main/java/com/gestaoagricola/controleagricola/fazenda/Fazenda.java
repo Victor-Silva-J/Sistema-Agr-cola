@@ -40,7 +40,7 @@ public class Fazenda {
 	private Long id;
 	
 	@NotNull
-	@Column(name = "CODIGOFAZENDA")
+	@Column(name = "CODIGOFAZENDA", unique = true)
 	private String codigoFazenda;
 	
 	@NotNull

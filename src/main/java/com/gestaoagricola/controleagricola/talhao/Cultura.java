@@ -4,5 +4,6 @@ public enum Cultura {
 
 	CANA,
 	BANANA,
-	CANA_BANANA
+	CANA_BANANA,
+	CERCADO
 }
